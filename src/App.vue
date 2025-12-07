@@ -230,8 +230,10 @@ const onPaste = (ev: ClipboardEvent) => {
     const items = ev.clipboardData?.items || []
     for (let i = 0; i < items.length; i++) {
       const it = items[i]
-      if (it.kind === 'file' && it.type.startsWith('image/')) {
-        const file = it.getAsFile()
+      if (!it) continue
+      // guard against undefined properties (TypeScript strict checks)
+      if (it.kind === 'file' && it.type?.startsWith('image/')) {
+        const file = it.getAsFile?.()
         if (file) {
           sendImage(file)
           ev.preventDefault()
