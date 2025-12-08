@@ -452,7 +452,7 @@ onMounted(() => {
 
       <!-- Text Clipboard -->
       <div class="mb-6 border-t pt-6">
-        <div class="flex items-start justify-between gap-4">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
           <div class="flex-1">
             <label class="block text-sm font-medium text-gray-700 mb-2">Clipboard</label>
             <textarea
@@ -461,7 +461,7 @@ onMounted(() => {
               class="block w-full rounded border px-3 py-2 h-40"
             ></textarea>
           </div>
-          <div class="flex flex-col gap-4 mt-6">
+          <div class="flex flex-col gap-4 lg:mt-6 w-full lg:w-auto">
             <!-- Send Button -->
             <button
               @click="sendUpdate"
@@ -487,7 +487,7 @@ onMounted(() => {
                 v-model.number="updateDelay"
                 min="100"
                 step="100"
-                class="w-20 rounded border px-2 py-1"
+                class="flex-1 lg:w-20 rounded border px-2 py-1"
               />
             </div>
           </div>
@@ -499,15 +499,15 @@ onMounted(() => {
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Image (paste or upload)
         </label>
-        <div class="flex items-center gap-2 mb-3">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
           <input type="file" accept="image/*" @change="onFileChange" />
           <button
             @click="clearImage"
-            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 whitespace-nowrap"
           >
             Clear
           </button>
-          <span class="text-sm text-gray-500">You can also paste an image (Ctrl+V)</span>
+          <span class="text-sm text-gray-500 w-full lg:w-auto">You can also paste an image (Ctrl+V)</span>
         </div>
         <div v-if="imagePreview" class="mt-3">
           <div class="text-sm text-gray-700 mb-2">Preview: {{ imagePreview.filename }}</div>
@@ -518,33 +518,33 @@ onMounted(() => {
       <!-- Files Section -->
       <div class="mb-6 border-t pt-6">
         <label class="block text-sm font-medium text-gray-700 mb-2">Files (upload / list)</label>
-        <div class="flex items-center gap-2 mb-3">
+        <div class="flex flex-wrap gap-2 mb-3">
           <input type="file" @change="uploadFileHTTP" />
           <button
             @click="refreshFiles"
-            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 whitespace-nowrap"
           >
             Refresh
           </button>
           <button
             @click="downloadSelectedZip"
-            class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 whitespace-nowrap"
           >
             Download Selected (zip)
           </button>
         </div>
         <div v-if="files.length > 0" class="mt-3">
           <ul class="space-y-2">
-            <li v-for="(f, idx) in files" :key="idx" class="flex items-center gap-3">
+            <li v-for="(f, idx) in files" :key="idx" class="flex flex-wrap items-center gap-3">
               <input type="checkbox" v-model="selectedFiles" :value="f.filename" />
               <a
                 :href="`${backendUri.replace(/\/$/, '')}${f.url}`"
                 target="_blank"
-                class="text-sm text-blue-600 hover:underline"
+                class="text-sm text-blue-600 hover:underline break-all"
               >
                 {{ f.filename }}
               </a>
-              <span class="text-xs text-gray-500">({{ f.size }} bytes)</span>
+              <span class="text-xs text-gray-500 w-full lg:w-auto">({{ f.size }} bytes)</span>
             </li>
           </ul>
         </div>
