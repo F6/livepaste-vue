@@ -317,6 +317,14 @@ watch(token, (newVal) => {
   }
 })
 
+watch(passphrase, (newVal) => {
+  if (newVal) {
+    localStorage.setItem('livepaste_passphrase', newVal)
+  } else {
+    localStorage.removeItem('livepaste_passphrase')
+  }
+})
+
 // Lifecycle
 const cleanup = () => {
   document.removeEventListener('paste', onPaste as EventListener)
@@ -336,6 +344,11 @@ onMounted(() => {
   const savedUsername = localStorage.getItem('livepaste_username')
   if (savedUsername) {
     username.value = savedUsername
+  }
+  
+  const savedPassphrase = localStorage.getItem('livepaste_passphrase')
+  if (savedPassphrase) {
+    passphrase.value = savedPassphrase
   }
   
   document.addEventListener('paste', onPaste as EventListener)
